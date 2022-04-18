@@ -2,10 +2,15 @@
 Detecting stellar rotational periods for TESS data
 
 ## Install 
-For install, please type, "python setup.py install"
+For normal install, 
+a) Type "python setup.py install"
 
-or, go to parental directory of tesarot, and type "pip install ./tesarot"
+b) Go to parental directory of tesarot, and type "pip install ./tesarot"
 
 ## Install for development
+For developers, 
 
-For developers, please type "python setup.py develop", or  "pip install -e ./tesarot" in parental directory"
+a) Type "python setup.py develop"
+
+b) Go to parental directory of tesarot, and type "pip install -e ./tesarot"
+
