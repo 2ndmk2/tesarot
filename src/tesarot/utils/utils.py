@@ -73,8 +73,8 @@ def make_output_name_for_lcs(search_result):
     files = []
     for i in range(len(missions)):
         mission_now = missions[i].replace(" ", "_")
-        exp_now = str(exp[i]).replace(" s", "s")
-        file_name = "lc_%s_%s_%s" %(mission_now , targets[i], exp_now )
+        exp_now = str(exp[i]).replace("s", "")
+        file_name = "lc_%s_%s_%ds" %(mission_now , targets[i], int(float(exp_now)) )
         files.append(file_name)
     return files
 
@@ -94,8 +94,8 @@ def make_output_name_for_tpfs(search_result):
     files = []
     for i in range(len(missions)):
         mission_now = missions[i].replace(" ", "_")
-        exp_now = str(exp[i]).replace(" s", "s")
-        file_name = "tpf_%s_%s_%s" %(mission_now , targets[i], exp_now )
+        exp_now = str(exp[i]).replace("s", "")
+        file_name = "tpf_%s_%s_%ds" %(mission_now , targets[i], int(float(exp_now)))
         files.append(file_name)
     return files
 

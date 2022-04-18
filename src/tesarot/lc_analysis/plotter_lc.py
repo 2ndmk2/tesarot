@@ -21,7 +21,7 @@ def plot_lc(lc_collection):
     for lc_now in lc_collection:
         lc_now.plot()
 
-def plot_lcs(lc_collection, target,  file_names, out_dir ="./", filter_length = 721):
+def plot_lcs(lc_collection, target,  file_names, out_dir ="./", filter_length = 7201):
 
     """ Plot lightcurves and their periodgrams.
 
@@ -43,7 +43,7 @@ def plot_lcs(lc_collection, target,  file_names, out_dir ="./", filter_length = 
     for (j, lc_now) in enumerate(lc_collection):
 
         file_name = os.path.join(out_dir, file_names[j] + "_lc_.png")
-        lc = lc_ana.reduce_lc_for_periodogram(lc_now, filter_length = 721)
+        lc = lc_ana.reduce_lc_for_periodogram(lc_now, filter_length = 7201)
         lc.plot()
         plt.savefig(file_name, bbox_inches="tight")
         plt.close()

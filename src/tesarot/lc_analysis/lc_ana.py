@@ -92,7 +92,7 @@ def load_data(outdir, target):
     return lcs, search_result
 
 
-def get_periods(lcs, filter_length = 721):
+def get_periods(lcs, filter_length = 7201):
     """ Get arrays for periods for Lightcurve objects.
 
         Args:
@@ -104,13 +104,13 @@ def get_periods(lcs, filter_length = 721):
 
     periods = []
     for lc in lcs:
-        lc = reduce_lc_for_periodogram(lc, filter_length = 721)
+        lc = reduce_lc_for_periodogram(lc, filter_length = 7201)
         pg = lc.to_periodogram(oversample_factor=1)
         period = pg.period_at_max_power
         periods.append(period)
     return periods
 
-def reduce_lc_for_periodogram(lc, remove_outlier =True, remove_flatten = True, filter_length = 721):
+def reduce_lc_for_periodogram(lc, remove_outlier =True, remove_flatten = True, filter_length = 7201):
     """ Remove outliers & flatten lcs. 
 
         Args:

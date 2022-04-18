@@ -116,7 +116,7 @@ def compute_centroid(image, x_cen, y_cen, wd):
     center_y = center_y/flux_all
     return center_x, center_y
 
-def make_difference_image_for_tpfs(tpfs, period_inputs = None, aperture_mask= "default", filter_length = 721):
+def make_difference_image_for_tpfs(tpfs, period_inputs = None, aperture_mask= "default", filter_length = 7201):
     """ Differential imaging for periodic signals
 
         Args:
