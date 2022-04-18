@@ -11,7 +11,7 @@ META_PATH = os.path.join("src", "tesarot", "__init__.py")
 CLASSIFIERS = [
     "Programming Language :: Python",
 ]
-INSTALL_REQUIRES = ['numpy', 'pandas', 'scipy', "lightkurve"]
+INSTALL_REQUIRES = ['numpy', 'pandas', 'scipy', "lightkurve", "astroquery", "astropy"]
 # END PROJECT SPECIFIC
 HERE = os.path.dirname(os.path.realpath(__file__))
 
