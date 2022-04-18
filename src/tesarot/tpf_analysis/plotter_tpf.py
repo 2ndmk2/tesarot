@@ -8,6 +8,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def plot_tpfs_with_gaia(tpfs, target, out_dir="./", gaia_stars = None,file_names =None, header =""):
+    """     
+    plot tpfs with gaia stars 
+        Args:
+            tpfs: Arrays for Target Pixel File objects
+            target: Target name
+            out_dir: Directory for output
+            gaia_stars: dataframe for stars
+            file_names: Arrays for files names 
+            header: Header for outputfile (normally set to be None)
+        Returns:
+            None
+    """     
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dif)
@@ -36,6 +48,20 @@ def plot_tpfs_with_gaia(tpfs, target, out_dir="./", gaia_stars = None,file_names
             plt.close()
 
 def plot_diffiamges_with_gaia(ave_images, diff_images, target, gaia_stars, periods, file_names, wcs_arr =None, out_dir="./"):
+    """     
+    plot averaged & differential images with gaia stars 
+        Args:
+            avg_images: Arrys of averaged images
+            diff_images: Arrays of differential images
+            target: Target name
+            gaia_stars: dataframe for stars
+            periods: Arrays of periods for differential imaging. If None, we compute periods from lightcurves
+            file_names: Arrays for files names 
+            wcs_arr: Arrays of wcs information 
+            out_dir: Directory for output
+        Returns:
+            None
+    """ 
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dif)

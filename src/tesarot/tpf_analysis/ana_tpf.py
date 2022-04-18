@@ -7,24 +7,62 @@ from tesarot.lc_analysis import lc_ana
 
 
 def get_tess_tpf(target, mission = "TESS", exptime = 120):
+
+    """ Get wcs information for tpfs.
+
+        Args:
+            tpfs: Arrays for Target Pixel File objects
+        Returns:
+            wcs_arr: Arrays of wcs information 
+
+    """
     search_result = lk.search_targetpixelfile(target, mission=mission, exptime = exptime)
     tpfs = search_result.download_all()
     return tpfs, search_result
 
 def save_search_result_tpf(search_result, target, outdir):
+    """ Save search result information for tpfs.
+
+        Args:
+            search_result: Table containing search result for data 
+            target: Target name
+            out_dir: Directory for output
+        Returns:
+            wcs_arr: Arrays of wcs information 
+
+    """
+
     table = search_result.table
     file_name =os.path.join(outdir, "search_resut_tpf_%s.csv" % target)
     table.write(file_name, format ="csv")
 
 def save_tpf(tpfs, search_result,  outdir):
+    """ Save tpfs to fits files
 
+        Args:
+            tpfs: Arrays for Target Pixel File objects
+            search_result: Table containing search result for data 
+            out_dir: Directory for output
+        Returns:
+            wcs_arr: Arrays of wcs information 
+
+    """
     file_heads = utils.make_output_name_for_tpfs(search_result)
     for (i, tpf) in enumerate(tpfs):
         file_name = os.path.join(outdir, file_heads [i]) + ".fits"
         tpf.to_fits(file_name )
-import lightkurve as lk
+
 
 def load_tpf(search_result, outdir):
+    """ Load fits files for tpfs
+
+        Args:
+            search_result: Table containing search result for data 
+            out_dir: Directory for output
+        Returns:
+            tpfs: Arrays for Target Pixel File objects
+
+    """    
 
     file_heads = utils.make_output_name_for_tpfs(search_result)
     tpfs = []
@@ -33,14 +71,34 @@ def load_tpf(search_result, outdir):
         tpfs.append(lk.read(file_name))
     return tpfs
 
-def load_data_tpf(outdir, target):
-    result_file_name =os.path.join(outdir, "search_resut_tpf_%s.csv" % target)
+def load_data_tpf(input_dir, target):
+    """ Load tpfs & search_result
+
+        Args:
+            input_dir: Directory for output
+            target: Target name
+        Returns:
+            tpfs: Arrays for Target Pixel File objects
+
+    """        
+    result_file_name =os.path.join(input_dir, "search_resut_tpf_%s.csv" % target)
     table_result = Table.read(result_file_name, format='csv', fast_reader=False)
     search_result = lk.SearchResult(table = table_result )
-    tpfs = load_tpf(search_result, outdir)
+    tpfs = load_tpf(search_result, input_dir)
     return tpfs, search_result
     
 def compute_centroid(image, x_cen, y_cen, wd):
+    """ Compute centroids for images. The region is limited aroun (x_cen, y_cen)
+
+        Args:
+            image: 2D Image
+            x_cen: Central position in x for computing centroids
+            y_cen: Central position in y for computing centroids
+            wd: Width of region for computing centroids
+        Returns:
+            center_x: x centroid
+            center_y: y centroid
+    """      
     center_x = 0
     center_y = 0
     flux_all = 0
@@ -54,9 +112,26 @@ def compute_centroid(image, x_cen, y_cen, wd):
             center_x += j* image[i][j]
             center_y += i* image[i][j]
             flux_all += image[i][j]
-    return center_x/flux_all, center_y/flux_all
+    center_x = center_x/flux_all
+    center_y = center_y/flux_all
+    return center_x, center_y
 
-def make_difference_image_for_tpfs(tpfs, period_inputs = None, aperture_mask= "default", filter_length = 720):
+def make_difference_image_for_tpfs(tpfs, period_inputs = None, aperture_mask= "default", filter_length = 721):
+    """ Differential imaging for periodic signals
+
+        Args:
+            tpfs: Arrays for Target Pixel File objects
+            period_inputs: Arrays of periods for differential imaging. If None, we compute periods from lightcurves
+            aperture_mask: Aperture_mask
+            filter_length (odd int): Length for filter in lk module 
+        Returns:
+            avg_images: Arrys of averaged images
+            diff_images: Arrays of differential images
+            periods: Periods used for differential imaging
+            folded_lcs: Arrays of folded lightcurves using periods 
+            folded_bin_lcs: Arrays of binned & folded lightcurves using periods
+    """     
+
     diff_images = []
     folded_lcs = []
     folded_bin_lcs = []
