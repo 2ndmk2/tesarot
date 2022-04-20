@@ -1,5 +1,5 @@
 # tesarot
-Detecting stellar rotational periods for TESS data
+Detecting and confirming stellar rotational periods for TESS data
 
 ## Install 
 For normal install, 
