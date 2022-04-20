@@ -2,6 +2,7 @@ from tesarot.lc_analysis import lc_ana
 from tesarot.tpf_analysis import ana_tpf
 from tesarot.lc_analysis import plotter_lc
 from tesarot.tpf_analysis import plotter_tpf
+from tesarot.tpf_analysis import plotter_tpf_all
 from tesarot.tpf_analysis import wcs_tpf
 from tesarot.utils import utils
 import astropy.units as u
