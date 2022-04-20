@@ -1,5 +1,5 @@
 # tesarot
-Detecting stellar rotational periods for TESS data
+Detecting and confirming stellar rotational periods for TESS data
 
 ## Install 
 For normal install, 
@@ -14,3 +14,6 @@ For developers,
 
 ## Test run
 Go to ipynb & tests folder
+
+
+[![alt](tpf_TESS_Sector_44_17198188_120s_diffimg.png)](href)
