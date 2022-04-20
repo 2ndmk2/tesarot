@@ -158,7 +158,7 @@ def compute_centroids_for_images(images, wcs_arr, ra_target, dec_target, wd=2):
         ra_cen, dec_cen = wcs_arr[j].wcs_pix2world([cen_x], [cen_y], 0)
         print(ra_cen, dec_cen)
         xy_cen_arr.append([cen_x, cen_y])
-        ra_dec_cen_arr.append([ra_cen, dec_cen])
+        ra_dec_cen_arr.append([ra_cen[0], dec_cen[0]])
 
     return xy_cen_arr, ra_dec_cen_arr
 

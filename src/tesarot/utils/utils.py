@@ -4,6 +4,7 @@ from astroquery.mast import Tesscut
 import os
 from astroquery.mast import Catalogs
 import astropy.units as u
+import numpy as np
 
 def get_gaia_stars(target, radius):
 
@@ -109,3 +110,16 @@ def sector_name_convert(sector_name):
     """
     sector_name_changed = int(sector_name.replace("TESS Sector ", ""))
     return sector_name_changed
+
+def save_results(gaia_stars, periods, ra_dec_cen_arr, out_dir):
+
+    file_name = os.path.join(out_dir, "summary")
+    np.savez(file_name, gaia_ra=gaia_stars["ra"],  gaia_dec=gaia_stars["dec"], gaig_mag = gaia_stars["phot_g_mean_mag"], \
+            period_arr = [period.value for period in periods], ra_dec_cen_arr = ra_dec_cen_arr)
+
+
+def load_results(out_dir):
+
+    file_name = os.path.join(out_dir, "summary.npz")
+    result = np.load(file_name)
+    return result
