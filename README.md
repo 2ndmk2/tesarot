@@ -11,3 +11,6 @@ For developers,
 
 * python setup.py develop
 *  *For conda/pip env*, go to parental directory of tesarot, and "pip install -e ./tesarot"
+
+## Test run
+Go to ipynb & tests folder
