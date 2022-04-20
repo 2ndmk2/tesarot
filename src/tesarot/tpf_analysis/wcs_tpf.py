@@ -19,3 +19,5 @@ def get_wcs_from_tpfs(tpfs):
     for tpf in tpfs:
         wcs_arr.append(tpf.wcs)
     return wcs_arr
+
+    

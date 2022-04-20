@@ -5,7 +5,7 @@ from astropy.table import Table
 
 
 
-def get_tess_lcs(target, mission = "TESS", exptime = 120):
+def get_tess_lcs(target, mission = "TESS", exptime = None):
     """ Download lightcurves for a particular target .
 
         Args:
@@ -18,8 +18,21 @@ def get_tess_lcs(target, mission = "TESS", exptime = 120):
 
     """
 
-    search_result = lk.search_lightcurve(target = target, mission=mission, exptime = exptime)
+    if exptime is None:
+        search_result = lk.search_lightcurve(target, mission=mission)
+    else:
+        search_result = lk.search_lightcurve(target, mission=mission, exptime = exptime)
+
     lc_collection = search_result.download_all() 
+    lc_arr = []
+
+    if lc_collection is None:
+        print("no data:",target)
+        return None, None
+
+    for lc_now in lc_collection:
+        lc_now = lc_now[lc_now.quality<15]
+        lc_arr.append(lc_now)
     return lc_collection, search_result
 
 def save_search_result(search_result, target, outdir):
@@ -92,7 +105,26 @@ def load_data(outdir, target):
     return lcs, search_result
 
 
-def get_periods(lcs, filter_length = 7201):
+def get_periods(lcs, filter_length = 7201,period_min=0.1,  period_max=10):
+    """ Get arrays for periods for Lightcurve objects.
+
+        Args:
+            lcs: Arrays of Lightcurve object
+            filter_length (int): Length for filter in lk module 
+        Returns:
+            periods: Arrays of periods (u.day)
+    """  
+
+    periods = []
+    for lc in lcs:
+        lc = reduce_lc_for_periodogram(lc, filter_length = 7201)
+        pg = lc.to_periodogram(oversample_factor=1, minimum_period=period_min, \
+        maximum_period = period_max)
+        period = pg.period_at_max_power
+        periods.append(period)
+    return periods
+    
+def get_period_values(lcs, filter_length = 7201):
     """ Get arrays for periods for Lightcurve objects.
 
         Args:
@@ -106,9 +138,10 @@ def get_periods(lcs, filter_length = 7201):
     for lc in lcs:
         lc = reduce_lc_for_periodogram(lc, filter_length = 7201)
         pg = lc.to_periodogram(oversample_factor=1)
-        period = pg.period_at_max_power
+        period = pg.period_at_max_power.value
         periods.append(period)
     return periods
+    
 
 def reduce_lc_for_periodogram(lc, remove_outlier =True, remove_flatten = True, filter_length = 7201):
     """ Remove outliers & flatten lcs. 

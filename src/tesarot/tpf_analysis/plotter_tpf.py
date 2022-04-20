@@ -7,6 +7,7 @@ from astropy.table import Table
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def plot_tpfs_with_gaia(tpfs, target, out_dir="./", gaia_stars = None,file_names =None, header =""):
     """     
     plot tpfs with gaia stars 
@@ -34,7 +35,7 @@ def plot_tpfs_with_gaia(tpfs, target, out_dir="./", gaia_stars = None,file_names
         ax = plt.subplot(projection=wcs_arr[j])
         plt.imshow(tpf.flux[0].value)
         if gaia_stars is None:
-            plt.savefig(file_name)
+            plt.savefig(file_name,  bbox_inches="tight")
             plt.close()
 
         else:
@@ -45,15 +46,17 @@ def plot_tpfs_with_gaia(tpfs, target, out_dir="./", gaia_stars = None,file_names
             s = np.maximum((19 - gaia_stars['phot_g_mean_mag'])*10, 0)
             plt.scatter(ra, dec,  s = s, color="r", transform=ax.get_transform('icrs'))
             plt.legend()
-            plt.savefig(file_name)
+            plt.savefig(file_name, bbox_inches="tight" )
             plt.close()
 
-def plot_diffiamges_with_gaia(ave_images, diff_images, target, gaia_stars, periods, file_names, wcs_arr =None, out_dir="./"):
+def plot_diffimages_with_gaia(ave_images, diff_images, xy_cen_arr,  target, gaia_stars, periods, file_names, wcs_arr =None, out_dir="./"):
     """     
     plot averaged & differential images with gaia stars 
         Args:
             avg_images: Arrys of averaged images
             diff_images: Arrays of differential images
+            cen_x: centroid for x
+            cen_y: centroid for y
             target: Target name
             gaia_stars: dataframe for stars
             periods: Arrays of periods for differential imaging. If None, we compute periods from lightcurves
@@ -72,9 +75,8 @@ def plot_diffiamges_with_gaia(ave_images, diff_images, target, gaia_stars, perio
 
     for (j, diff_image) in enumerate(diff_images):
         file_name = os.path.join(out_dir, "%s_diffimg.png" % (file_names[j]) )
-        x, y =  wcs_arr[j].all_world2pix(ra, dec, 0)
         s = np.maximum((19 - gaia_mag)*10, 0)
-        cen_x, cen_y = ana_tpf.compute_centroid(diff_image, x[0], y[0], 2)
+        x, y =  wcs_arr[j].all_world2pix(ra, dec, 0)
         fig, ax = plt.subplots(1,2, figsize =(12,9))
         ax1 = plt.subplot(121, projection = wcs_arr[j])
         ax2 = plt.subplot(122, projection = wcs_arr[j])
@@ -86,7 +88,7 @@ def plot_diffiamges_with_gaia(ave_images, diff_images, target, gaia_stars, perio
         ax2.imshow(diff_image)
         ax2.set_title('Difference image P:%.4f day' % periods[j].value)
         ax2.scatter(x[0],y[0], s =100, color="b", label="target")
-        ax2.scatter(cen_x, cen_y, s = 40, color="g", label="centroid")
+        ax2.scatter(xy_cen_arr[j][0], xy_cen_arr[j][1], s = 40, color="g", label="centroid")
         ax2.scatter(x,y, s =s, color="r", alpha = 0.5)
         ax2.legend()
         plt.savefig(file_name, bbox_inches="tight")

@@ -7,9 +7,4 @@ __email__ = ""
 __license__ = "MIT"
 __description__ = "period detection with TESS"
 
-
-from . import ana_tpf
-from . import plotter_tpf
-from . import plotter_tpf_all
-from . import differential_imaging
-from . import wcs_tpf
+from . import ffi_ana

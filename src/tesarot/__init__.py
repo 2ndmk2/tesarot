@@ -9,3 +9,5 @@ __description__ = "period detection with TESS"
 
 from . import lc_analysis
 from . import tpf_analysis
+from . import utils
+from . import ffi_analysis
