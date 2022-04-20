@@ -14,3 +14,6 @@ For developers,
 
 ## Test run
 Go to ipynb & tests folder
+
+
+xfun::embed_file("homework.pdf")
