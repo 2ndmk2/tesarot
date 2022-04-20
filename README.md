@@ -16,5 +16,4 @@ For developers,
 Go to ipynb & tests folder
 
 
-[![alt](tpf_TESS_Sector_44_17198188_120s_diffimg.png![image](https://user-images.githubusercontent.com/23694434/164264077-c241aaaa-0d1d-46b2-b4d1-be86302ae17d.png)
-)](href)
+[![alt](tpf_TESS_Sector_44_17198188_120s_diffimg.png)](href)
