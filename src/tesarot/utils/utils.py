@@ -103,10 +103,10 @@ def make_output_name_for_tpfs(search_result):
 def sector_name_convert(sector_name):
     """ Remove TESS Sector from str
 
-    Args:
-        sector_name: str for sector name
-    Returns:
-        sector_name_changed: changed name
+        Args:
+            sector_name: str for sector name
+        Returns:
+            sector_name_changed: changed name
     """
     sector_name_changed = int(sector_name.replace("TESS Sector ", ""))
     return sector_name_changed
@@ -116,7 +116,20 @@ def save_results(gaia_stars, periods, ra_dec_cen_arr, out_dir):
     file_name = os.path.join(out_dir, "summary")
     np.savez(file_name, gaia_ra=gaia_stars["ra"],  gaia_dec=gaia_stars["dec"], gaig_mag = gaia_stars["phot_g_mean_mag"], \
             period_arr = [period.value for period in periods], ra_dec_cen_arr = ra_dec_cen_arr)
+def convert_filter_width(filter_length_day, exptime):
+    """ Get filter window for FFT in unit of cadence for that in unit of day:
+        
+        Args:
+            filter_day: Filter window for FFT in unit of day
+            exptime: cadence in unit of second:
+        Retruns:
+            filter_width: Filter window for FFT in unit of cadence
+    """
 
+    filter_length = int(filter_length_day * 3600*24/exptime)
+    if filter_length %2 ==0:
+        filter_length  += 1
+    return filter_length
 
 def load_results(out_dir):
 

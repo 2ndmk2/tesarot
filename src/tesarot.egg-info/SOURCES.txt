@@ -1,7 +1,9 @@
 .DS_Store
 README.md
 setup.py
+tpf_TESS_Sector_44_17198188_120s_diffimg.png
 ipynb/.DS_Store
+ipynb/test_suite_for_TIC17198188.ipynb
 src/.DS_Store
 src/tesarot/.DS_Store
 src/tesarot/__init__.py
@@ -14,6 +16,8 @@ src/tesarot.egg-info/top_level.txt
 src/tesarot/__pycache__/__init__.cpython-38.pyc
 src/tesarot/ffi_analysis/__init__.py
 src/tesarot/ffi_analysis/ffi_ana.py
+src/tesarot/ffi_analysis/__pycache__/__init__.cpython-38.pyc
+src/tesarot/ffi_analysis/__pycache__/ffi_ana.cpython-38.pyc
 src/tesarot/lc_analysis/.DS_Store
 src/tesarot/lc_analysis/__init__.py
 src/tesarot/lc_analysis/lc_ana.py
@@ -22,6 +26,7 @@ src/tesarot/lc_analysis/__pycache__/__init__.cpython-38.pyc
 src/tesarot/lc_analysis/__pycache__/lc_ana.cpython-38.pyc
 src/tesarot/lc_analysis/__pycache__/plotter.cpython-38.pyc
 src/tesarot/lc_analysis/__pycache__/plotter_lc.cpython-38.pyc
+src/tesarot/tpf_analysis/.DS_Store
 src/tesarot/tpf_analysis/__init__.py
 src/tesarot/tpf_analysis/ana_tpf.py
 src/tesarot/tpf_analysis/differential_imaging.py
@@ -30,7 +35,9 @@ src/tesarot/tpf_analysis/plotter_tpf_all.py
 src/tesarot/tpf_analysis/wcs_tpf.py
 src/tesarot/tpf_analysis/__pycache__/__init__.cpython-38.pyc
 src/tesarot/tpf_analysis/__pycache__/ana_tpf.cpython-38.pyc
+src/tesarot/tpf_analysis/__pycache__/differential_imaging.cpython-38.pyc
 src/tesarot/tpf_analysis/__pycache__/plotter_tpf.cpython-38.pyc
+src/tesarot/tpf_analysis/__pycache__/plotter_tpf_all.cpython-38.pyc
 src/tesarot/tpf_analysis/__pycache__/test.cpython-38.pyc
 src/tesarot/tpf_analysis/__pycache__/wcs_tpf.cpython-38.pyc
 src/tesarot/utils/__init__.py
@@ -38,6 +45,4 @@ src/tesarot/utils/utils.py
 src/tesarot/utils/__pycache__/__init__.cpython-38.pyc
 src/tesarot/utils/__pycache__/utils.cpython-38.pyc
 tests/.DS_Store
-tests/test_lc.py
 tests/test_lc_tpf.py
-tests/test_tpf.py

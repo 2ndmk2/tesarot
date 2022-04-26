@@ -18,7 +18,7 @@ def get_ra_dec(target):
             dec: declination
     """  
 
-    catalogTIC = Catalogs.query_object("TIC 121638493", radius=0.01 * u.arcsec, catalog="TIC")
+    catalogTIC = Catalogs.query_object(target, radius=0.01 * u.arcsec, catalog="TIC")
     ra = catalogTIC["ra"]
     dec = catalogTIC["dec"]
     return ra, dec
@@ -67,6 +67,7 @@ def save_sector_info(sector_info, out_dir, target):
     file_name =os.path.join(out_dir, "search_resut_ffi_%s.csv" % target)
     sector_info.write(file_name, format ="csv")
 
+
 def ffi_dl(ra, dec, size):
     """ Download FFI 
         
@@ -86,6 +87,23 @@ def ffi_dl(ra, dec, size):
     for sector_num in sector_info["sector"]:
         hdulist.append(Tesscut.get_cutouts(coordinates=cutout_coord, size=size, sector = sector_num)[0])
     return hdulist, sector_info
+
+def get_sectorinfo(ra, dec):
+    """ Download FFI 
+        
+        Args:
+            ra: right ascention
+            dec: declination
+
+        Returns:
+            size: size of FFI (side)
+
+    """
+
+
+    cutout_coord = SkyCoord(ra, dec, unit="deg")
+    sector_info = Tesscut.get_sectors(coordinates=cutout_coord)
+    return sector_info 
 
 def make_output_name_for_ffi(sector_info, target_name):
 

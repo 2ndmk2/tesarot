@@ -48,7 +48,7 @@ def save_search_result(search_result, target, outdir):
     """    
 
     table = search_result.table
-    file_name =os.path.join(outdir, "search_resut_lc_%s.csv" % target)
+    file_name =os.path.join(outdir, "search_result_lc_%s.csv" % target)
     table.write(file_name, format ="csv")
 
 def save_lcs(lcs, search_result,  outdir):
@@ -98,7 +98,7 @@ def load_data(outdir, target):
             search_result: Table containing search result for data 
     """  
 
-    result_file_name =os.path.join(outdir, "search_resut_lc_%s.csv" % target)
+    result_file_name =os.path.join(outdir, "search_result_lc_%s.csv" % target)
     table_result = Table.read(result_file_name, format='csv', fast_reader=False)
     search_result = lk.SearchResult(table = table_result )
     lcs = load_lcs(search_result, outdir)
@@ -117,7 +117,7 @@ def get_periods(lcs, filter_length = 7201,period_min=0.1,  period_max=10):
 
     periods = []
     for lc in lcs:
-        lc = reduce_lc_for_periodogram(lc, filter_length = 7201)
+        lc = reduce_lc_for_periodogram(lc, filter_length = filter_length)
         pg = lc.to_periodogram(oversample_factor=1, minimum_period=period_min, \
         maximum_period = period_max)
         period = pg.period_at_max_power
@@ -136,7 +136,7 @@ def get_period_values(lcs, filter_length = 7201):
 
     periods = []
     for lc in lcs:
-        lc = reduce_lc_for_periodogram(lc, filter_length = 7201)
+        lc = reduce_lc_for_periodogram(lc, filter_length = filter_length)
         pg = lc.to_periodogram(oversample_factor=1)
         period = pg.period_at_max_power.value
         periods.append(period)

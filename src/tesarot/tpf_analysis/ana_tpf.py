@@ -49,7 +49,7 @@ def save_search_result_tpf(search_result, target, outdir):
     """
 
     table = search_result.table
-    file_name =os.path.join(outdir, "search_resut_tpf_%s.csv" % target)
+    file_name =os.path.join(outdir, "search_result_tpf_%s.csv" % target)
     table.write(file_name, format ="csv")
 
 def save_tpf(tpfs, search_result,  outdir):
@@ -99,7 +99,7 @@ def load_data_tpf(input_dir, target):
             tpfs: Arrays for Target Pixel File objects
 
     """        
-    result_file_name =os.path.join(input_dir, "search_resut_tpf_%s.csv" % target)
+    result_file_name =os.path.join(input_dir, "search_result_tpf_%s.csv" % target)
     table_result = Table.read(result_file_name, format='csv', fast_reader=False)
     search_result = lk.SearchResult(table = table_result )
     tpfs = load_tpf(search_result, input_dir)
